@@ -317,7 +317,7 @@ canvas{background:#e3ecf8;border-radius:22px;box-shadow:0 8px 0 rgba(20,49,107,.
     <div class="chips" id="fch" style="margin-top:10px"><button class="chip on" data-m="cover">Isi bingkai</button><button class="chip" data-m="contain">Tampilkan utuh</button></div><div class="out" id="pout"></div><p class="hint">Di komputer, geser foto langsung di pratinjau dan gulir untuk zoom. Di HP, pakai slider. 💬 Bisa juga <b>seret foto dari WhatsApp</b> (Web/Desktop) langsung ke halaman ini, atau salin foto lalu tekan <b>Ctrl+V</b>.</p></div></section>
    
   </div>
-  <section class="card prev" id="c-prev"><h2>Pratinjau</h2><div id="cw"><canvas id="cv" width="1080" height="1080"></canvas><div id="sel" hidden></div><div id="ed" contenteditable="true" spellcheck="false" hidden></div></div>
+  <section class="card prev" id="c-prev"><h2>Pratinjau</h2><div id="cw"><canvas id="cv" width="3375" height="3375"></canvas><div id="sel" hidden></div><div id="ed" contenteditable="true" spellcheck="false" hidden></div></div>
    <div class="chips" id="tb" style="margin:10px 0 0"><button class="chip" id="b-edit" title="Edit teks terpilih">✏️ Edit</button><button class="chip" data-mv="-1,0" title="Geser kiri">◀</button><button class="chip" data-mv="0,-1" title="Geser atas">▲</button><button class="chip" data-mv="0,1" title="Geser bawah">▼</button><button class="chip" data-mv="1,0" title="Geser kanan">▶</button><button class="chip" id="b-un" title="Kembali (Ctrl+Z)">↶</button><button class="chip" id="b-re" title="Ulangi (Ctrl+Y)">↷</button><button class="chip" id="b-sm" title="Perkecil layer terpilih">A−</button><button class="chip" id="b-bg" title="Perbesar layer terpilih">A+</button><button class="chip" id="b-rs">Reset posisi</button></div>
    <div class="chips" style="margin:8px 0 0"><span class="hint" style="margin:0 4px 0 0">Layer atas:</span><button class="chip on" data-ly="sp_cl">Karakter kiri</button><button class="chip on" data-ly="sp_cr">Karakter kanan</button><button class="chip on" data-ly="sp_fm">Maskot</button><button class="chip on" data-ly="sp_lg">Logo</button><button class="chip on" data-ly="ttl">Judul</button></div>
    <p class="hint"><b>Karakter, logo, dan judul di bagian atas</b> juga bisa diklik, diseret ke kiri/kanan, dan diubah ukurannya (A− / A+); background di belakangnya tetap utuh. <b>Klik 1×</b> pada teks di pratinjau untuk memilih, lalu geser dengan tombol panah keyboard (Shift = lebih jauh, Alt = halus) atau seret dengan mouse. <b>Klik 2×</b> untuk mengedit langsung: Ctrl+B tebal, Ctrl+Z kembali, Enter pindah baris, Esc selesai.</p>
@@ -562,7 +562,7 @@ const RTK={anak:"anak",ayah:"ortu",ibu:"ortu",tgl:"tgl",jam:"jam",tmp:"tmp",kal:
 // unduh JPG: tersimpan otomatis ke perangkat (PC maupun HP)
 $("dl").onclick=async()=>{
  const h=$("dlh");h.textContent="";if(EDIT)closeEdit();const prev=SEL;SEL=null;updateSel();
- try{await render();const blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",.93));if(!blob)throw new Error("gambar gagal dibuat");
+ try{await render();const blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",.95));if(!blob)throw new Error("gambar gagal dibuat");
   const nm=($("anak").value.trim()||"undangan").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"undangan";
   const fn="undangan-"+S.ac.toLowerCase()+"-"+nm+".jpg";let done=false;
   try{const dls=window.claude&&await claude.use("downloads");if(dls){await dls.save({filename:fn,data:blob});done=true;h.textContent="✓ Tersimpan: "+fn}}
