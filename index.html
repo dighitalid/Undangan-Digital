@@ -379,10 +379,25 @@ const boy=/\b(muhammad|ahmad|abdullah|abdurrahman|ali|umar|usman|yusuf|ibrahim|i
 function pick(t,keys){const L=t.replace(/\*/g,"").replace(/\p{Extended_Pictographic}\uFE0F?/gu,"").split(/\n/);
  for(const k of keys){for(let i=0;i<L.length;i++){const m=L[i].match(/^\s*(?:[-•\d.)\s]*)([^:：]+)[:：]\s*(.*)$/);if(!m)continue;const key=m[1].toLowerCase();if(!key.includes(k)||(key.includes("lahir")&&!k.includes("lahir")))continue;if((k==="jam"||k==="pukul")&&/makan|konsumsi/.test(key))continue;
   let v=m[2].trim();if(!v){const a=[];for(let j=i+1;j<L.length&&a.length<4;j++){const n=L[j].trim();if(!n){if(a.length)break;continue}if(/^[^\p{L}\p{N}]*\p{L}[^:：\n]{1,60}[:：]/u.test(n))break;a.push(n)}v=a.join(" ")}v=v.replace(/[_\u2026]{2,}/g," ").replace(/\.{4,}/g," ").replace(/\s+/g," ").trim();if(v)return v}}return""}
+// deteksi template bebas (tanpa "Kunci: isi"), mis. "AQIQAH atas nama ..." dan "KAMIS 19 NOVEMBER 2026"
+function freeBrand(t){
+  const l=(t.split(/\n/).find(x=>x.trim())||"");
+  const m=l.match(/\b(pn|bq|nb|na|mt|mu)\b/i);if(!m)return"";
+  return({pn:"pn",bq:"bq",nb:"na",na:"na",mt:"mu",mu:"mu"})[m[1].toLowerCase()]||"";
+}
+function freeForm(t){
+  const F={},L=t.split(/\n/).map(x=>x.trim());
+  const ia=L.findIndex(x=>/atas nama/i.test(x));
+  if(ia>=0){const nx=L.slice(ia+1).find(x=>x);if(nx)F.nm=nx.replace(/\s+/g," ")}
+  const dm=t.match(/(?:senin|selasa|rabu|kamis|jumat|jum'?at|sabtu|minggu|ahad)?\s*\d{1,2}\s+(?:januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\s+\d{4}/i);
+  if(dm)F.tgl=tDate(dm[0].trim()).v;
+  const am=t.match(/acara[^\n]*?(\d{1,2})\s*[:.]?\s*(\d{2})\b/i);if(am&&+am[1]<=23&&+am[2]<=59)F.jam=am[1].padStart(2,"0")+":"+am[2];
+  return F;
+}
 function parse(){
  const t=$("raw").value.replace(/\*/g,"").replace(/\p{Extended_Pictographic}\uFE0F?/gu,"");if(!t.trim())return;RT={};OFF={};SEL=null;const low=t.toLowerCase();
- const bk=Object.keys(B).find(k=>B[k].k.some(w=>low.includes(w)));
- let nm=pick(t,["nama anak","nama bayi","nama lengkap","nama"]),ayah=pick(t,["ayah","bapak"]),ibu=pick(t,["ibu","bunda"]);
+ const F=freeForm(t);const bk=freeBrand(t)||Object.keys(B).find(k=>B[k].k.some(w=>low.includes(w)));
+ let nm=pick(t,["nama anak","nama bayi","nama lengkap","nama"]),ayah=pick(t,["ayah","bapak"]),ibu=pick(t,["ibu","bunda"]);if(F.nm)nm=F.nm;
  const sp=nm.split(/\s+(bin|binti|bn|bt)\.?\s+/i);let g=null,why="";
  if(sp.length>=3){nm=sp[0];if(!ayah)ayah=sp[2];g=/^bi?n$/i.test(sp[1])?"m":"f";why=g==="f"?"kata “binti”":"kata “bin”"}
  else if(/\bbinti\b/i.test(t)){g="f";why="kata “binti”"}else if(/\bbin\b/i.test(t)){g="m";why="kata “bin”"}
@@ -391,7 +406,7 @@ function parse(){
  const ev=pick(t,["jenis acara","acara"])+" "+low;const ac=/khitan|sunat/.test(ev)?"Khitan":/\bhaul\b/.test(ev)?"Haul":"Aqiqah";
  if(bk)S.brand=bk;if(g)S.g=g;S.ac=ac;sync();
  $("anak").value=nm;$("ayah").value=ayah;$("ibu").value=ibu;
- $("tgl").value=pick(t,["tanggal acara di undangan","tanggal acara","hari acara","hari, tanggal","hari","tanggal"]);$("jam").value=pick(t,["jam acara di undangan","jam acara","waktu","jam","pukul"]);$("tmp").value=pick(t,["alamat lengkap pengiriman","alamat acara","alamat","lokasi","tempat"]);
+ $("tgl").value=pick(t,["tanggal acara di undangan","tanggal acara","hari acara","hari, tanggal","hari","tanggal"]);$("jam").value=pick(t,["jam acara di undangan","jam acara","waktu","jam","pukul"]);$("tmp").value=pick(t,["alamat lengkap pengiriman","alamat acara","alamat","lokasi","tempat"]);if(!$("tgl").value&&F.tgl)$("tgl").value=F.tgl;if(!$("jam").value&&F.jam)$("jam").value=F.jam;
  $("det").textContent=(bk?"Brand: "+B[bk].n:"Brand tidak terdeteksi, pilih manual")+" · "+(g?(g==="f"?"Perempuan":"Laki-laki")+" (dari "+why+")":"Jenis kelamin tidak terdeteksi, pilih manual")+" · Acara: "+ac;
  const wn=tidyAll();if(wn.length)$("det").textContent+=" · "+wn.join(" · ");
  render();pushHist();aiTidy(true)}
