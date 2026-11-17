@@ -434,7 +434,7 @@ function tTime(s){
  return f.join(" - ")+(f.length===1?" - Selesai":"")+("")}
 function tAddr(s){let t=tc(s);if(!t)return"";
  t=t.replace(/\bjln?\.?(?=\s|\d)/gi,"Jl.").replace(/\b(gg|gang)\.?(?=\s)/gi,"Gg.").replace(/\bno\.?\s*(?=\d)/gi,"No. ").replace(/\bkp\.?(?=\s)/gi,"Kp.").replace(/\bkel(urahan)?\.?(?=\s)/gi,"Kel.").replace(/\bkec(amatan)?\.?(?=\s)/gi,"Kec.")
-  .replace(/\brt\.?\s*0*(\d+)\s*[\/,\s]*\s*rw\.?\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\bDki\b/g,"DKI").replace(/\bRt\b/g,"RT").replace(/\bRw\b/g,"RW").replace(/[^\S\n]*,[^\S\n]*/g,", ").replace(/[^\S\n]+/g," ");
+  .replace(/\brt\.?\s*0*(\d+)\s*\/\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\b(Ii|Iii|Iv|Vi|Vii)\b/g,m=>m.toUpperCase()).replace(/\brt\.?\s*0*(\d+)\s*[\/,\s]*\s*rw\.?\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\bDki\b/g,"DKI").replace(/\bRt\b/g,"RT").replace(/\bRw\b/g,"RW").replace(/[^\S\n]*,[^\S\n]*/g,", ").replace(/[^\S\n]+/g," ");
  if(t.length>95)t=t.replace(/\s+(Dekat|Depan|Sebelah|Samping|Belakang)\b.*$/,"").replace(/\b(Kota|Kabupaten) /,"");
  return t}
 function tidyAll(){const w=[];RT={};
