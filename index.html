@@ -233,6 +233,26 @@ canvas{background:#e3ecf8;border-radius:22px;box-shadow:0 8px 0 rgba(20,49,107,.
  .byte-wrap::before{width:190px;height:190px}
  .fxt-wrap{top:calc(8px + env(safe-area-inset-top,0px))}
 }
+
+/* ===== TAB BAR, PULL-TO-REFRESH, SHARE WA ===== */
+#tabbar{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;display:grid;grid-template-columns:repeat(3,1fr);width:min(94vw,440px);padding:6px;border-radius:30px;background:var(--deep);box-shadow:0 6px 0 rgba(8,28,70,.6),0 20px 36px rgba(0,8,40,.45);animation:tbin .8s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes tbin{from{transform:translate(-50%,160%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+#tbpill{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/3);border-radius:24px;background:var(--paper);box-shadow:0 4px 0 rgba(10,35,90,.35);transition:transform .5s cubic-bezier(.2,1.3,.4,1)}
+.tb-t{position:relative;z-index:1;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;padding:9px 2px 8px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:.74rem;white-space:nowrap;color:#cfe0ff;transition:color .3s,transform .15s;-webkit-tap-highlight-color:transparent}
+.tb-t:active{transform:scale(.9)}
+.tb-t.on{color:var(--blue)}
+.tb-t.tb-wa.on{color:#1f9d55}
+.tb-i{font-size:1.2rem;line-height:1.1;display:inline-block;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.tb-t.on .tb-i{transform:translateY(-3px) scale(1.15)}
+.tb-t.bump .tb-i{animation:mhop .6s cubic-bezier(.3,1.5,.5,1)}
+#ptr{position:fixed;left:50%;top:12px;z-index:45;padding:9px 18px;border-radius:22px;background:var(--paper);color:var(--blue);font-family:"Fredoka",sans-serif;font-weight:600;font-size:.9rem;box-shadow:0 5px 0 rgba(10,35,90,.35);opacity:0;transform:translate(-50%,-70px);pointer-events:none;white-space:nowrap}
+#ptr[data-r="1"]{color:#fff;background:var(--pink)}
+#cschips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+#csnum{margin:6px 0 0}
+#walk{margin-top:10px}
+#pastebtn{margin-top:12px}
+@media(max-width:859px){.side{display:none!important}.main{padding-bottom:120px}}
+@media(prefers-reduced-motion:reduce){#tabbar,.tb-i,#tbpill{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -321,7 +341,7 @@ canvas{background:#e3ecf8;border-radius:22px;box-shadow:0 8px 0 rgba(20,49,107,.
    <div class="chips" id="tb" style="margin:10px 0 0"><button class="chip" id="b-edit" title="Edit teks terpilih">✏️ Edit</button><button class="chip" data-mv="-1,0" title="Geser kiri">◀</button><button class="chip" data-mv="0,-1" title="Geser atas">▲</button><button class="chip" data-mv="0,1" title="Geser bawah">▼</button><button class="chip" data-mv="1,0" title="Geser kanan">▶</button><button class="chip" id="b-un" title="Kembali (Ctrl+Z)">↶</button><button class="chip" id="b-re" title="Ulangi (Ctrl+Y)">↷</button><button class="chip" id="b-sm" title="Perkecil layer terpilih">A−</button><button class="chip" id="b-bg" title="Perbesar layer terpilih">A+</button><button class="chip" id="b-rs">Reset posisi</button></div>
    <div class="chips" style="margin:8px 0 0"><span class="hint" style="margin:0 4px 0 0">Layer atas:</span><button class="chip on" data-ly="sp_cl">Karakter kiri</button><button class="chip on" data-ly="sp_cr">Karakter kanan</button><button class="chip on" data-ly="sp_fm">Maskot</button><button class="chip on" data-ly="sp_lg">Logo</button><button class="chip on" data-ly="ttl">Judul</button></div>
    <p class="hint"><b>Karakter, logo, dan judul di bagian atas</b> juga bisa diklik, diseret ke kiri/kanan, dan diubah ukurannya (A− / A+); background di belakangnya tetap utuh. <b>Klik 1×</b> pada teks di pratinjau untuk memilih, lalu geser dengan tombol panah keyboard (Shift = lebih jauh, Alt = halus) atau seret dengan mouse. <b>Klik 2×</b> untuk mengedit langsung: Ctrl+B tebal, Ctrl+Z kembali, Enter pindah baris, Esc selesai.</p>
-   <button class="btn w" id="dl" style="margin-top:12px">⬇ Unduh JPG</button><p class="hint" id="dlh"></p></section>
+   <div id="cschips"></div><p class="hint" id="csnum"></p><button class="btn w" id="dljpg" style="margin-top:12px">⬇ 1. Unduh JPG</button><button class="btn w" id="dl" style="margin-top:8px">📲 2. Share to WhatsApp CS</button><button class="btn g w" id="copycap" style="margin-top:8px">📋 Salin Caption</button><textarea id="capbox" readonly rows="9" hidden style="margin-top:8px;width:100%;font:inherit;font-size:.9rem;padding:10px;border-radius:14px;border:2px solid #c9d8f5;background:#fff;color:#1d2b4f"></textarea><p class="hint" id="dlh"></p><a class="btn g w" id="savelink" target="_blank" rel="noopener" hidden style="margin-top:8px">💾 Simpan manual (buka gambar)</a></section>
  </div>
 </main></div>
 <div class="bt" id="bt" role="status" aria-live="polite"><svg viewBox="0 0 64 56"><circle cx="14" cy="26" r="7" fill="#2f7de1"/><circle cx="50" cy="26" r="7" fill="#2f7de1"/><rect x="10" y="10" width="44" height="38" rx="16" fill="#e8f1fc" stroke="#b9cfee" stroke-width="2"/><rect x="15" y="16" width="34" height="26" rx="12" fill="#0a1226"/><path d="M21 30 q4 -8 8 0 M35 30 q4 -8 8 0" stroke="#7df3ff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M28 35 q4 6 8 0z" fill="#7df3ff"/><circle cx="22" cy="6" r="3.5" fill="#fff" stroke="#b9cfee"/><path d="M26 10 L22 6" stroke="#b9cfee" stroke-width="2"/></svg><span id="btx"></span></div>
@@ -396,7 +416,7 @@ function tTime(s){
  ms=ms.filter(x=>+x[1]<=24).slice(0,2);
  if(!ms.length)return tc(s.replace(/[_\u2026]+/g," "));
  const f=ms.map(x=>{let h=+x[1];if((per==="sore"||per==="malam")&&h<12)h+=12;if(per==="siang"&&h<11)h+=12;return String(h%24).padStart(2,"0")+":"+(x[2]||"00")});
- return f.join(" - ")+(f.length===1?" - Selesai":"")+(z?" "+z.toUpperCase():"")}
+ return f.join(" - ")+(f.length===1?" - Selesai":"")+("")}
 function tAddr(s){let t=tc(s);if(!t)return"";
  t=t.replace(/\bjln?\.?(?=\s|\d)/gi,"Jl.").replace(/\b(gg|gang)\.?(?=\s)/gi,"Gg.").replace(/\bno\.?\s*(?=\d)/gi,"No. ").replace(/\bkp\.?(?=\s)/gi,"Kp.").replace(/\bkel(urahan)?\.?(?=\s)/gi,"Kel.").replace(/\bkec(amatan)?\.?(?=\s)/gi,"Kec.")
   .replace(/\brt\.?\s*0*(\d+)\s*[\/,\s]*\s*rw\.?\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\bDki\b/g,"DKI").replace(/\bRt\b/g,"RT").replace(/\bRw\b/g,"RW").replace(/[^\S\n]*,[^\S\n]*/g,", ").replace(/[^\S\n]+/g," ");
@@ -895,6 +915,188 @@ sync();render().then(pushHist);
  // sambutan
  setTimeout(()=>toast("Selamat datang! Yuk mulai bikin undangan","","👋"),700);
 })();
+</script>
+<div id="ptr" aria-hidden="true">Tarik untuk kosongkan form</div>
+<nav id="tabbar" aria-label="Menu utama"><span id="tbpill"></span>
+<button class="tb-t on" data-go="c-pesanan"><span class="tb-i">📝</span><span>Isi Form</span></button>
+<button class="tb-t" data-go="c-prev"><span class="tb-i">🖼️</span><span>Preview Undangan</span></button>
+<button class="tb-t tb-wa" data-go="cschips"><span class="tb-i">💬</span><span>Share WA</span></button>
+</nav>
+<script>
+/* ===== Share ke WhatsApp, tab bar, pull-to-refresh, paste ===== */
+const CS={na:[["CS Nabawi","6281381574091"]],
+ bq:[["CS 1","6285283523880"],["CS 2","6281389319949"],["CS 3","6287784734606"]],
+ pn:[["CS Peternak","6281318007426"]],
+ mu:[["CS Multazam","6281291442882"]]};
+
+// nomor CS mengikuti brand; bq harus dipilih manual
+const _sync=sync;
+sync=function(){_sync();renderCS()};
+function renderCS(){
+  const L=CS[S.brand]||[];
+  if(S.csb!==S.brand){S.csb=S.brand;S.cs=L.length===1?0:-1}
+  $("cschips").innerHTML='<span class="hint" style="margin:0 4px 0 0">Kirim ke:</span>'+
+    L.map((c,i)=>'<button type="button" class="chip'+(i===S.cs?' on':'')+'" onclick="pickCS('+i+')">'+c[0]+'</button>').join("");
+  $("csnum").textContent=(S.cs>=0&&L[S.cs])?"Nomor: +"+L[S.cs][1]:"Pilih nomor CS tujuan dulu";
+}
+function pickCS(i){S.cs=i;renderCS()}
+renderCS();
+
+// notifikasi aman (fungsi toast berada di dalam blok lain)
+function notify(m,t,e){try{if(typeof toast==="function")toast(m,t,e)}catch(_){}}
+// caption otomatis dari isi undangan
+function waCaption(){
+  const tgl=$("tgl").value.trim(),jam=$("jam").value.trim().replace(/\s*\b(wib|wita|wit)\b/ig,"").replace(/:/g,"."),tmp=$("tmp").value.trim().replace(/\s*\n\s*/g," ");
+  if(!tgl||!jam||!tmp)return null;
+  const anak=S.g==="f"?"Putri":"Putra";
+  const acara=S.ac==="Lainnya"?"acara":"*Tasyakuran "+S.ac+"*";
+  return [
+    "_Assalamu'alaikum. Wr. Wb_","",
+    "Alhamdulillah atas rahmat Allah SWT, kami mengundang Bapak/Ibu untuk menghadiri acara "+acara+" "+anak+" kami yang akan dilaksanakan pada:","",
+    "🗓️: "+tgl,
+    "🕐: "+jam,
+    "📍: "+tmp,"",
+    "Kehadiran Bapak/Ibu dan saudara akan menjadi kebahagiaan dan keberkahan bagi keluarga kami.","",
+    "_Wassalamu'alaikum Wr. Wb_"
+  ].join("\n");
+}
+
+function dataUrlToBlob(u){
+  const [h,b]=u.split(",");const mime=h.match(/:(.*?);/)[1];
+  const bin=atob(b),arr=new Uint8Array(bin.length);
+  for(let k=0;k<bin.length;k++)arr[k]=bin.charCodeAt(k);
+  return new Blob([arr],{type:mime});
+}
+// ekspor JPG tetap 3375×3375 px agar tidak blur
+async function exportJpg(){
+  await render();
+  let blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",.95));
+  if(!blob||!blob.size){blob=dataUrlToBlob(cv.toDataURL("image/jpeg",.95))}
+  if(!blob||!blob.size)throw new Error("gambar gagal dibuat di perangkat ini");
+  return blob;
+}
+async function makeFile(){
+  if(EDIT)closeEdit();
+  const prev=SEL;SEL=null;updateSel();
+  try{
+    const blob=await exportJpg();
+    const nm=($("anak").value.trim()||"undangan").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"undangan";
+    return new File([blob],"undangan-"+S.ac.toLowerCase()+"-"+nm+".jpg",{type:"image/jpeg"});
+  }finally{SEL=prev;updateSel()}
+}
+function saveBlob(f){
+  const url=URL.createObjectURL(f);
+  const a=document.createElement("a");a.href=url;a.download=f.name;a.style.display="none";
+  document.body.appendChild(a);a.click();a.remove();
+  // cadangan: buka gambar di tab baru, tahan lalu pilih Simpan
+  const sl=$("savelink");sl.href=url;sl.download=f.name;sl.hidden=false;
+}
+
+// langkah 2: hanya buka chat CS dengan caption (foto diunduh di langkah 1)
+function shareWA(){
+  const st=$("dlh");
+  const cap=waCaption();
+  if(!cap){st.textContent="Lengkapi tanggal, waktu, dan alamat dulu ya.";notify("Lengkapi tanggal, waktu & alamat dulu","err","⚠️");return}
+  const c=(CS[S.brand]||[])[S.cs];
+  if(!c){st.textContent="Pilih nomor CS tujuan dulu.";notify("Pilih nomor CS dulu","err","📞");return}
+  const url="https://wa.me/"+c[1]+"?text="+encodeURIComponent(cap);
+  window.open(url,"_blank");
+  st.textContent="✓ Chat "+c[0]+" dibuka dengan caption. Tekan 📎, pilih JPG dari Unduhan, lalu kirim.";
+  notify("Chat "+c[0]+" dibuka","ok","💬");
+}
+$("dl").onclick=shareWA;
+
+// langkah 1: unduh JPG
+$("dljpg").onclick=async()=>{
+  const st=$("dlh");st.textContent="Menyiapkan JPG…";$("savelink").hidden=true;
+  try{
+    const f=await makeFile();
+    saveBlob(f);
+    st.textContent="✓ Unduhan dimulai: "+f.name+". Jika tidak masuk ke perangkat, tekan 💾 Simpan manual lalu tahan gambar dan pilih Simpan.";
+    notify("JPG siap diunduh","ok","⬇");
+  }catch(e){st.textContent="Gagal membuat JPG: "+((e&&e.message)||"coba lagi.")}
+};
+
+// salin caption manual (alternatif jika Share ke WhatsApp bentrok)
+$("copycap").onclick=async()=>{
+  const st=$("dlh");
+  const cap=waCaption();
+  if(!cap){st.textContent="Lengkapi tanggal, waktu, dan alamat dulu ya.";notify("Lengkapi tanggal, waktu & alamat dulu","err","⚠️");return}
+  const box=$("capbox");box.value=cap;box.hidden=false;
+  let ok=false;
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(cap);ok=true}}catch(e){}
+  if(!ok){
+    try{box.focus();box.select();box.setSelectionRange(0,cap.length);ok=document.execCommand("copy")}catch(e){}
+  }
+  if(ok){
+    st.textContent="✓ Caption disalin. Buka WhatsApp CS, tempel di kolom pesan, lalu lampirkan JPG.";
+    notify("Caption disalin","ok","📋");
+  }else{
+    st.textContent="Caption ada di kotak bawah. Tekan lama teks lalu pilih Salin.";
+    notify("Tekan lama caption lalu Salin","err","📝");
+  }
+};
+
+// paste otomatis: tempel form → langsung dibaca
+$("raw").addEventListener("paste",()=>setTimeout(()=>{if($("raw").value.trim())parse()},60));
+
+// kosongkan form
+function clearForm(){
+  if(!confirm("Kosongkan semua isian form dan foto?")){setPT(0,false);return}
+  if(EDIT)closeEdit();
+  document.querySelectorAll("#c-pesanan textarea,#cust input,#cust textarea,#anak,#ayah,#ibu,#tgl,#jam,#tmp").forEach(el=>{el.value=""});
+  $("foto").value="";foto=null;
+  $("ped").hidden=true;$("det").textContent="Belum ada data.";
+  $("tout").textContent="";$("pout").textContent="";$("dlh").textContent="";
+  RT={};OFF={};SEL=null;
+  S={brand:"na",g:"m",ac:"Aqiqah"};
+  DP.t=DP.i=DP.n=1;PH.z=1;PH.nx=0;PH.ny=0;syncPed();
+  sync();render();pushHist();
+  setPT(0,false);
+  notify("Form dikosongkan","ok","🧹");
+}
+
+// pull-to-refresh
+const PT=$("ptr");let py=null,pdist=0;
+function setPT(d,ready){
+  PT.style.transform="translate(-50%,"+(d-70)+"px)";
+  PT.style.opacity=Math.min(1,d/45);
+  PT.textContent=ready?"Lepas untuk kosongkan form ✨":"Tarik untuk kosongkan form";
+  PT.dataset.r=ready?"1":"0";
+}
+document.addEventListener("touchstart",e=>{
+  py=(window.scrollY<=0&&e.touches.length===1&&!EDIT)?e.touches[0].clientY:null;pdist=0;
+},{passive:true});
+document.addEventListener("touchmove",e=>{
+  if(py==null)return;
+  const d=e.touches[0].clientY-py;
+  if(d<=0){pdist=0;setPT(0,false);return}
+  pdist=Math.min(d*.6,120);setPT(pdist,pdist>=70);
+},{passive:true});
+document.addEventListener("touchend",()=>{
+  if(py==null)return;
+  const go=pdist>=70;py=null;pdist=0;
+  if(go)clearForm();else setPT(0,false);
+});
+
+// tab bar
+const TB=[...document.querySelectorAll(".tb-t")];
+function tbSet(i){
+  TB.forEach((b,j)=>b.classList.toggle("on",j===i));
+  $("tbpill").style.transform="translateX("+(i*100)+"%)";
+}
+TB.forEach((b,i)=>b.onclick=()=>{
+  tbSet(i);
+  b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump");
+  if(navigator.vibrate)navigator.vibrate(8);
+  const g=b.dataset.go;
+  $(g).scrollIntoView({behavior:"smooth",block:"center"});
+});
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)tbSet(e.target.id==="c-prev"?1:0)});
+},{rootMargin:"-40% 0px -50% 0px"});
+io.observe($("c-pesanan"));io.observe($("c-prev"));
+tbSet(0);
 </script>
 </body>
 </html>
