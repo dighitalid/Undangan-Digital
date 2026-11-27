@@ -337,6 +337,76 @@ body{background:linear-gradient(180deg,#2a92ff 0%,#1a78f0 100%) fixed!important}
 #sel .rh[data-h=ne]{left:100%;top:0;cursor:nesw-resize}
 #sel .rh[data-h=se]{left:100%;top:100%;cursor:nwse-resize}
 #sel .rh[data-h=sw]{left:0;top:100%;cursor:nesw-resize}
+/* ===== v1634: tampilan modern (hitam, putih, biru listrik, kuning neon) ===== */
+:root{--ink:#0e0f14;--mut:#6b7280;--pri:#2146ff;--line:#e5e7eb;--glass:#fff;--gold:#d9ff3d;--blue:#2146ff;color-scheme:light}
+html,body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important}
+body{background:#0b0c10!important;color:#e9ecf5!important}
+body::before,body::after{display:none!important}
+/* ikon animasi di bawah Halo, Editor! dihapus */
+#squad,.squad,#bubble,.bubble,#bw,.byte-wrap,#byte,.spk,.orbit,.bt{display:none!important}
+.hero{background:#0b0c10!important;border:0!important;border-radius:28px!important;box-shadow:none!important;color:#fff!important;padding:34px 28px!important}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem)!important;font-weight:800!important;letter-spacing:-.02em;color:#fff!important}
+.hero h1 span{color:#d9ff3d!important}
+.hero p,.hero .sub{color:#9aa3b2!important}
+.card{background:#fff!important;border:1px solid #e5e7eb!important;border-radius:22px!important;box-shadow:0 10px 30px rgba(0,0,0,.25)!important;color:#0e0f14!important;backdrop-filter:none!important}
+.card h2{font-family:inherit!important;font-weight:800!important;color:#0e0f14!important;letter-spacing:-.01em}
+.card h2::before{display:none!important}
+.ly-h{font-family:inherit!important;color:#fff!important;font-weight:800!important;font-size:1rem!important;letter-spacing:.06em;text-transform:uppercase;text-shadow:none!important}
+.btn{background:#2146ff!important;color:#fff!important;border-radius:14px!important;box-shadow:none!important;font-family:inherit!important;font-weight:700!important}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.98)}
+.btn.g{background:#f1f3f8!important;color:#0e0f14!important;border:1px solid #e5e7eb!important;box-shadow:none!important}
+#dl{background:#d9ff3d!important;color:#0e0f14!important}
+input,select,textarea{background:#f6f7fb!important;color:#0e0f14!important;border:1px solid #e5e7eb!important;border-radius:12px!important}
+.chip{background:#f1f3f8!important;color:#0e0f14!important;border:1px solid transparent!important;border-radius:999px!important}
+.chip.on{background:#0e0f14!important;color:#d9ff3d!important}
+.tile{background:#f6f7fb!important;border:1px solid #e5e7eb!important;border-radius:16px!important;color:#0e0f14!important}
+.hint{color:#6b7280!important}
+.ritem{background:#f6f7fb!important;box-shadow:none!important;border:1px solid #e5e7eb}
+#tabbar{background:#0e0f14!important;border-radius:999px!important;box-shadow:0 12px 30px rgba(0,0,0,.45)!important}
+#tbpill{background:#d9ff3d!important;border-radius:999px!important;box-shadow:none!important}
+.tb-t{color:#9aa3b2!important;font-weight:700!important}
+.tb-t.on,.tb-t.tb-wa.on{color:#0e0f14!important}
+#ptr{background:#fff;color:#0e0f14}
+#ptr[data-r="1"]{background:#d9ff3d;color:#0e0f14}
+#snd{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+
+/* ===== v1635: gaya anime (sakuga): kertas putih, lavender, ungu, pink, efek tekan & SFX ===== */
+:root{--sk-paper:#fbf9ff;--sk-lav:#e9e1ff;--sk-vio:#7c4dff;--sk-pink:#ff7eb6;--sk-ink:#1b1530}
+body{background:var(--sk-paper)!important;color:var(--sk-ink)!important}
+.hero{background:var(--sk-ink)!important;box-shadow:0 8px 0 var(--sk-lav)!important;color:#fff!important}
+.hero h1 span{color:var(--sk-pink)!important}
+.hero p,.hero .sub{color:#c9bfe6!important}
+.card{background:#fff!important;border:0!important;border-radius:22px!important;box-shadow:0 8px 0 var(--sk-lav),0 14px 28px rgba(60,30,120,.10)!important;color:var(--sk-ink)!important}
+.card h2{color:var(--sk-ink)!important}
+.ly-h{color:var(--sk-ink)!important}
+.btn{background:var(--sk-vio)!important;color:#fff!important;border-radius:16px!important;box-shadow:0 5px 0 #4b25c9!important}
+.btn:hover{filter:brightness(1.06)}
+.btn.g{background:var(--sk-pink)!important;color:#fff!important;border:0!important;box-shadow:0 5px 0 #d94a86!important}
+#dl{background:var(--sk-vio)!important;color:#fff!important}
+.chip{background:var(--sk-lav)!important;color:var(--sk-ink)!important;border:0!important}
+.chip.on{background:var(--sk-vio)!important;color:#fff!important}
+.tile{background:var(--sk-paper)!important;border:2px solid var(--sk-lav)!important}
+input,select,textarea{background:var(--sk-paper)!important;border:2px solid var(--sk-lav)!important;color:var(--sk-ink)!important}
+.hint{color:#7a6f99!important}
+#tabbar{background:var(--sk-ink)!important;border-radius:999px!important;box-shadow:0 10px 26px rgba(40,20,90,.35)!important}
+#tbpill{background:var(--sk-pink)!important;border-radius:999px!important;box-shadow:none!important}
+.tb-t{color:#bdb3dd!important}
+.tb-t.on,.tb-t.tb-wa.on{color:#fff!important}
+.apk.on{border-color:var(--sk-vio)!important;background:var(--sk-lav)!important}
+.ritem{background:var(--sk-paper)!important;border:2px solid var(--sk-lav)!important}
+
+/* efek tekan: gepeng lalu memantul */
+@keyframes skSquash{0%{transform:scale(1)}28%{transform:scale(1.12,.82)}55%{transform:scale(.94,1.07)}80%{transform:scale(1.02,.99)}100%{transform:scale(1)}}
+.sk-squash{animation:skSquash .46s cubic-bezier(.3,1.4,.5,1)}
+/* ledakan garis */
+.sk-burst{position:fixed;width:0;height:0;pointer-events:none;z-index:90}
+.sk-burst i{position:absolute;left:0;top:0;width:7px;height:46px;margin:-23px 0 0 -3.5px;border-radius:5px;background:linear-gradient(#ffffff,#d9ccff);box-shadow:0 0 0 2px rgba(124,77,255,.25);animation:skSpoke .5s ease-out forwards}
+@keyframes skSpoke{0%{scale:.25;opacity:1}70%{opacity:1}100%{scale:1.35;opacity:0}}
+/* teks SFX */
+.sk-sfx{position:fixed;z-index:91;pointer-events:none;white-space:nowrap;transform:translate(-50%,-50%);font:900 30px/1 "Noto Sans JP","Hiragino Sans","Yu Gothic","Noto Sans CJK JP",system-ui,sans-serif;color:#fff;-webkit-text-stroke:2px var(--sk-ink);text-shadow:4px 4px 0 var(--sk-pink);animation:skSfx .8s ease-out forwards}
+@keyframes skSfx{0%{transform:translate(-50%,-50%) scale(.2) rotate(-14deg);opacity:0}22%{transform:translate(-50%,-50%) scale(1.25) rotate(-6deg);opacity:1}38%{transform:translate(-50%,-50%) scale(.96) rotate(-6deg)}72%{opacity:1}100%{transform:translate(-50%,-135%) scale(1) rotate(-4deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.sk-squash,.sk-burst i,.sk-sfx{animation:none!important}}
 </style>
 </head>
 <body>
@@ -519,6 +589,16 @@ const HR=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"],BL=["Januari
 function tc1(s){return s.toLowerCase().replace(/\s+/g," ").trim().replace(/(^|[\s\-(])([a-zà-ÿ])/g,(m,a,b)=>a+b.toUpperCase()).replace(/ (Bin|Binti|Dan|Van|Di|Ke|Yang|Dari) /g,m=>m.toLowerCase())}
 function tc(s){return s.split("\n").map(tc1).filter(Boolean).join("\n")}
 function tDate(s){const t=s.toLowerCase().replace(/jum'?at/,"jumat").replace(/ahad/,"minggu");if(!t.trim())return{v:""};
+ const WDM={sen:1,senin:1,sel:2,selasa:2,rab:3,rabu:3,kam:4,kamis:4,jum:5,jumat:5,sab:6,sabtu:6,min:0,minggu:0,ahad:0};
+ const wdTxt=(t.match(/\b(senin|sen|selasa|sel|rabu|rab|kamis|kam|jumat|jum|sabtu|sab|minggu|min|ahad)\b/)||[])[1];
+ const wdIdx=wdTxt!==undefined?WDM[wdTxt]:-1;
+ const dmo=t.match(/(?<!\d)(\d{1,2})\s+(\d{4})(?!\d)/);
+ if(dmo&&!/\b(jan|januari|feb|februari|mar|maret|apr|april|mei|jun|juni|jul|juli|agu|agt|agustus|ags|sep|september|okt|oktober|nov|november|des|desember)\b/.test(t)){
+   const dd=+dmo[1],yy=+dmo[2],mo=inferMonth(dd,yy,wdIdx);
+   if(mo<0)return{v:"",warn:"Bulan belum ditulis. Isi tanggal lengkap, contoh: 28 November 2026"};
+   const dt=new Date(yy,mo,dd);
+   return{v:`${HR[dt.getDay()]}, ${dd} ${BL[mo]} ${yy}`,warn:`Bulan diperkirakan ${BL[mo]} dari hari ${HR[dt.getDay()]}. Cek kembali`};
+ }
  const dn=(t.match(/senin|selasa|rabu|kamis|jumat|sabtu|minggu/)||[])[0];
  const m=t.match(/(\d{1,2})\s*[\/\-.\s]\s*(\d{1,2}|[a-z]{3,9})\s*[\/\-.\s,]*\s*(\d{2,4})?/);if(!m)return{v:tc(s)};
  let d=+m[1],mo=/^\d/.test(m[2])?+m[2]-1:BP.indexOf(m[2].slice(0,3).replace("agt","agu").replace("ags","agu")),y=m[3]?+m[3]:0;
@@ -529,6 +609,9 @@ function tDate(s){const t=s.toLowerCase().replace(/jum'?at/,"jumat").replace(/ah
 function tTime(s){
  // Ambil hanya angka jam; abaikan emoji, garis bawah, titik-titik, dan simbol lain
  let t=s.toLowerCase().replace(/\p{Extended_Pictographic}\uFE0F?/gu," ").replace(/[_\u2026]+/g," ").replace(/\./g,":").trim();if(!t)return"";
+ const PR={subuh:"05:00",zuhur:"12:00",dzuhur:"12:00",jumat:"12:00",ashar:"15:30",asyar:"15:30",asyat:"15:30",maghrib:"18:30",isya:"19:30",isyak:"19:30"};
+ const prm=t.match(/\b(subuh|zuhur|dzuhur|jumat|ashar|asyar|asyat|maghrib|isya|isyak)\b/);
+ if(prm&&!/(?<!\d)\d{1,2}:\d{2}(?!\d)/.test(t)&&!/(jam|pukul)\s*\d/.test(t))return PR[prm[1]]+" - Selesai";
  const z=(t.match(/\b(wib|wita|wit)\b/)||[])[0],per=(t.match(/pagi|siang|sore|malam/)||[])[0];
  const t2=t.replace(/\d{1,2}[\/\-:]\d{1,2}[\/\-:]\d{2,4}/g,"").replace(/\b(wib|wita|wit)\b/,"");
  let ms=[...t2.matchAll(/(?<!\d)(\d{1,2}):(\d{2})(?!\d)/g)];if(!ms.length)ms=[...t2.matchAll(/(?:jam|pukul)\s*(\d{1,2})(?!\d)/g)];
@@ -541,7 +624,28 @@ function tAddr(s){let t=tc(s);if(!t)return"";
  t=t.replace(/\bjln?\.?(?=\s|\d)/gi,"Jl.").replace(/\b(gg|gang)\.?(?=\s)/gi,"Gg.").replace(/\bno\.?\s*(?=\d)/gi,"No. ").replace(/\bkp\.?(?=\s)/gi,"Kp.").replace(/\bkel(urahan)?\.?(?=\s)/gi,"Kel.").replace(/\bkec(amatan)?\.?(?=\s)/gi,"Kec.")
   .replace(/\brt\.?\s*0*(\d+)\s*\/\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\b(Ii|Iii|Iv|Vi|Vii)\b/g,m=>m.toUpperCase()).replace(/\brt\.?\s*0*(\d+)\s*[\/,\s]*\s*rw\.?\s*0*(\d+)/gi,(m,a,b)=>`RT ${a.padStart(2,"0")}/RW ${b.padStart(2,"0")}`).replace(/\bDki\b/g,"DKI").replace(/\bRt\b/g,"RT").replace(/\bRw\b/g,"RW").replace(/[^\S\n]*,[^\S\n]*/g,", ").replace(/[^\S\n]+/g," ");
  if(t.length>95)t=t.replace(/\s+(Dekat|Depan|Sebelah|Samping|Belakang)\b.*$/,"").replace(/\b(Kota|Kabupaten) /,"");
- return t}
+ return tAddrLines(t)}
+function inferMonth(d,y,wd){
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  let best=-1,bestScore=null;
+  for(let m=0;m<12;m++){
+    const dt=new Date(y,m,d);if(dt.getMonth()!==m)continue;
+    if(wd>=0&&dt.getDay()!==wd)continue;
+    const diff=dt-today,score=diff>=0?diff:-diff+1e13;
+    if(bestScore===null||score<bestScore){bestScore=score;best=m}
+  }
+  return best;
+}
+function tAddrLines(t){
+  if(!t||t.includes("\n"))return t;
+  const parts=t.split(/\s*,\s*/).filter(Boolean);
+  if(!parts.length)return t;
+  const rest=parts.slice(1).flatMap(p=>p.split(/\s+(?=(?:Jakarta|Depok|Bekasi|Bogor|Tangerang|Bandung|Surabaya|Medan|Semarang|Yogyakarta|Malang|Makassar|Palembang|Kota|Kabupaten)\b)/));
+  const lines=parts[0].split(/\s+(?=Gg\.)|\s+(?=(?:Nmr|No\.)\s*\w)/).filter(Boolean);
+  const last=lines[lines.length-1];
+  if(rest.length&&/^(Nmr|No\.)/.test(last))lines[lines.length-1]=last+", "+rest.shift();
+  return [...lines,...rest].join("\n");
+}
 function tidyAll(){const w=[];RT={};
  ["anak","ayah","ibu"].forEach(i=>{$(i).value=tc($(i).value)});
  const d=tDate($("tgl").value);$("tgl").value=d.v;if(d.warn)w.push(d.warn);
@@ -1052,7 +1156,7 @@ renderCS();
 function notify(m,t,e){try{if(typeof toast==="function")toast(m,t,e)}catch(_){}}
 // caption otomatis dari isi undangan
 function waCaption(){
-  const tgl=$("tgl").value.trim(),jam=$("jam").value.trim().replace(/\s*\b(wib|wita|wit)\b/ig,"").replace(/:/g,"."),tmp=$("tmp").value.trim().replace(/\s*\n\s*/g," ");
+  const tgl=$("tgl").value.trim(),jam=$("jam").value.trim().replace(/\s*\b(wib|wita|wit)\b/ig,"").replace(/:/g,"."),tmp=$("tmp").value.trim().replace(/\s*\n\s*/g,", ");
   if(!tgl||!jam||!tmp)return null;
   const anak=S.g==="f"?"Putri":"Putra";
   const acara=S.ac==="Lainnya"?"acara":"*Tasyakuran "+S.ac+"*";
@@ -1399,6 +1503,37 @@ sxBtn.onclick=()=>{
   const end=()=>{if(!rz)return;rz=null;render().then(pushHist)};
   sel.addEventListener("pointerup",end);
   sel.addEventListener("pointercancel",end);
+})();
+</script>
+<script>
+/* ===== efek anime saat diklik: gepeng, ledakan garis, teks SFX ===== */
+(function(){
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const WORD={btn:"ドン!",chip:"カチッ",tile:"カチッ",tab:"ポン",apk:"ズザッ"};
+  const kindOf=el=>el.classList.contains("tb-t")?"tab":el.classList.contains("chip")?"chip":el.classList.contains("tile")?"tile":el.classList.contains("apk")?"apk":"btn";
+  function burst(x,y){
+    const b=document.createElement("div");b.className="sk-burst";b.style.left=x+"px";b.style.top=y+"px";
+    for(let k=0;k<8;k++){const i=document.createElement("i");i.style.transform="rotate("+(k*45)+"deg) translateY(-44px)";i.style.animationDelay=(k%2?0.03:0)+"s";b.appendChild(i)}
+    document.body.appendChild(b);setTimeout(()=>b.remove(),700);
+  }
+  function sfx(x,y,t){
+    const s=document.createElement("div");s.className="sk-sfx";s.textContent=t;s.style.left=x+"px";s.style.top=y+"px";
+    document.body.appendChild(s);setTimeout(()=>s.remove(),900);
+  }
+  document.addEventListener("pointerdown",e=>{
+    if(reduce)return;
+    const el=e.target.closest("button,a.btn,.chip,.tile,.tb-t,.apk");
+    if(!el||el.disabled)return;
+    el.classList.remove("sk-squash");void el.offsetWidth;el.classList.add("sk-squash");
+    setTimeout(()=>el.classList.remove("sk-squash"),500);
+    burst(e.clientX,e.clientY);
+    sfx(e.clientX,e.clientY-46,WORD[kindOf(el)]||"ドン!");
+  },{passive:true});
+  // notifikasi sukses: SFX besar di tengah layar
+  if(typeof notify==="function"){
+    const _n=notify;
+    notify=function(m,t,e){if(!reduce&&t!=="err"){burst(innerWidth/2,innerHeight/2);sfx(innerWidth/2,innerHeight/2,"ドン!")}return _n(m,t,e)};
+  }
 })();
 </script>
 </body>
